@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Working with basic shapes</title>
+    <style>
+        html, body {
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #renderScene {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script src="js/babylon.2.3.js"></script>
+    <script src="js/hand-1.3.7.js"></script>
+    <script src="js/cannon.js"></script>
+
+</head>
+<body>
+<canvas id="renderScene"></canvas>
+<script>
+    var canvas = document.getElementById('renderScene');
+    var engine = new BABYLON.Engine(canvas, true);
+
+    var createScene = function() {
+
+        var scene = new BABYLON.Scene(engine);
+        var camera = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 2, Math.PI / 8, 50, BABYLON.Vector3.Zero(), scene);
+
+        camera.attachControl(canvas, false);
+
+        var light = new BABYLON.HemisphericLight('hemi',new BABYLON.Vector3(0, 1, 0), scene);
+
+        //look at the polygons
+
+        //boxes: name, size, scene
+        var box = new BABYLON.Mesh.CreateBox('box', 6.0, scene);
+        // sphere: name, segments, diameter, scene to attach
+        var sphere = new BABYLON.Mesh.CreateSphere('sphere', 10.0, 10.0, scene);
+        //plane: name, size, scene
+        var plane = new BABYLON.Mesh.CreatePlane('plane', 10.0, scene);
+        //(name, height, diamTop, diamBottom, tessellation, [optional height subdivs], scene, updatable)
+        var cylinder = BABYLON.Mesh.CreateCylinder("cylinder", 3, 3, 3, 6, 1, scene, false);
+
+
+        return scene;
+
+    }; //end of createScene function
+    var scene = createScene();
+    // Register a render loop to repeatedly render the scene
+    engine.runRenderLoop(function () {
+        scene.render();
+    });
+</script>
+</body>
+</html>
