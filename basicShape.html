@@ -47,7 +47,14 @@
         //(name, height, diamTop, diamBottom, tessellation, [optional height subdivs], scene, updatable)
         var cylinder = BABYLON.Mesh.CreateCylinder("cylinder", 3, 3, 3, 6, 1, scene, false);
 
+        // (name, diameter, thickness, tessellation, scene, updatable)
+        var torus = BABYLON.Mesh.CreateTorus("torus", 5, 1, 10, scene, false);
 
+        //babylon positioning
+        box.position = new BABYLON.Vector3(-10,0, 0);
+        cylinder.position.z = -10;
+        plane.position.z = 10;
+        torus.position.x = 10;
         return scene;
 
     }; //end of createScene function
@@ -55,6 +62,9 @@
     // Register a render loop to repeatedly render the scene
     engine.runRenderLoop(function () {
         scene.render();
+    });
+    window.addEventListener('resize', function() {
+        engine.resize();
     });
 </script>
 </body>
