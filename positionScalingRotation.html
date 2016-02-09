@@ -29,8 +29,36 @@
     var engine = new BABYLON.Engine(canvas, true);
 
     var createScene = function() {
+        var scene = new BABYLON.Scene(engine);
+        var light = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 100, 100), scene);
+        var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0.8, 100, new BABYLON.Vector3.Zero(), scene);
 
-    }
+        camera.attachControl(canvas, false);
+
+        var box1 = new BABYLON.Mesh.CreateBox('box1', 6.0, scene);
+        var box2 = new BABYLON.Mesh.CreateBox('box2', 6.0, scene);
+        var box3 = new BABYLON.Mesh.CreateBox('box3', 6.0, scene);
+        var box4 = new BABYLON.Mesh.CreateBox('box4', 6.0, scene);
+
+        box1.position = new BABYLON.Vector3(-20, 0, 0);
+        box2.position.x = -10;
+        box3.position.x = 0;
+        box4.position.x = 10;
+        box4.rotation.x = 10;
+        box4.rotation.y = 10;
+        box2.scale = 2;
+
+        return scene;
+    };
+
+    var scene = createScene();
+
+    engine.runRenderLoop(function () {
+        scene.render();
+    });
+    window.addEventListener('resize', function() {
+        engine.resize();
+    });
 </script>
 </body>
 </html>
