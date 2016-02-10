@@ -39,6 +39,7 @@
         var box2 = new BABYLON.Mesh.CreateBox('box2', 6.0, scene);
         var box3 = new BABYLON.Mesh.CreateBox('box3', 6.0, scene);
         var box4 = new BABYLON.Mesh.CreateBox('box4', 6.0, scene);
+        var box5 = new BABYLON.Mesh.CreateBox('box5', 6,0, scene);
 
         box1.position = new BABYLON.Vector3(-20, 0, 0);
         box2.position.x = -10;
@@ -47,6 +48,8 @@
         box4.rotation.x = 10;
         box4.rotation.y = 10;
         box2.scale = 2;
+        box3.scale = 2;
+        box5.position.x = 20;
 
         return scene;
     };
