@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Working with materials in Babylon</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+
+    </style>
+    <script src="js/babylon.2.3.js"></script>
+    <script src="js/hand-1.3.7.js"></script>
+    <script src="js/cannon.js"></script>
+</head>
+<body>
+<canvas id="renderCanvas">
+
+</canvas>
+<script>
+    var canvas = document.getElementById('renderCanvas');
+    var engine = new BABYLON.Engine(canvas, true);
+
+    var createScene = function() {
+        var scene = new BABYLON.Scene(engine);
+        var light = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 100, 100), scene);
+        var camera = new BABYLON.ArcRotateCamera("Camera", 0, 0.8, 100, new BABYLON.Vector3.Zero(), scene);
+        camera.attachControl(canvas, false);
+        //sphere's parameters: name, subdivisions, size, scene
+        var sphere1 = new BABYLON.Mesh.CreateSphere('sphere1', 10.0, 6.0, scene);
+        var sphere2 = new BABYLON.Mesh.CreateSphere('sphere2', 2.0, 7.0, scene);
+        var sphere3 = new BABYLON.Mesh.CreateSphere('sphere3', 10.0, 6.0, scene);
+        var sphere4 = new BABYLON.Mesh.CreateSphere('sphere4', 20.0, 10.0, scene);
+
+        //add the positoning
+        sphere1.position.x = -40;
+        sphere2.position.x = -30;
+        sphere4.position.x = -20;
+
+        //apply materials
+        var materialSphere1 = new BABYLON.StandardMaterial("texture1", scene);
+        sphere1.material = materialSphere1;
+
+
+
+        return scene;
+    };
+    var scene = createScene();
+    // Register a render loop to repeatedly render the scene
+    engine.runRenderLoop(function () {
+        scene.render();
+    });
+    // Watch for browser/canvas resize events
+    window.addEventListener("resize", function () {
+        engine.resize();
+    });
+</script>
+</body>
+</html>
