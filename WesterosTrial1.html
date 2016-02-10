@@ -35,7 +35,7 @@
         var light = new BABYLON.HemisphericLight('HemiLight', new BABYLON.Vector3(-2, 0, 0),scene);
 
         //camera
-        var camera = new BABYLON.ArcRotateCamera("Camera", -1.57, 1.0, 200, new BABYLON.Vector3.Zero(), scene);
+        var camera = new BABYLON.ArcRotateCamera("Camera", -1.57, 1.5, 200, new BABYLON.Vector3.Zero(), scene);
         camera.attachControl(canvas);
 
         var groundMaterial = new BABYLON.StandardMaterial('mat',scene);
@@ -43,6 +43,9 @@
 
         var groundPlane = new BABYLON.Mesh.CreatePlane('ground', 300.0, scene);
         groundPlane.material = groundMaterial;
+
+        //work on scene
+        groundPlane.position = new BABYLON.Vector3(0,0,0)
 
         return scene;
     };
