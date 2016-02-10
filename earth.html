@@ -31,7 +31,7 @@
 
     var createScene = function() {
 
-        var scene = new Babylon.Scene(engine);
+        var scene = new BABYLON.Scene(engine);
 
         //light
         var light = new BABYLON.HemisphericLight('HemiLight', new BABYLON.Vector3(-2, 0, 0),scene);
@@ -46,7 +46,30 @@
         sphere.position = new BABYLON.Vector3(0,0,0);
         sphere.rotation.x = Math.PI;
 
-    }
+        var groundMaterial = new BABYLON.StandardMaterial('mat', scene);
+        groundMaterial.diffuseTexture = new BABYLON.Texture('img/earth.jpg', scene);
+        sphere.material = groundMaterial;
+
+        //animate the earth
+        var alpha = 0;
+        scene.beforeRender = function() {
+            sphere.rotation.y = alpha;
+            alpha -= 0.01;
+        };
+        return scene;
+    };
+
+    var scene = createScene();
+
+    // Register a render loop to repeatedly render the scene
+    engine.runRenderLoop(function () {
+        scene.render();
+    });
+
+    // Watch for browser/canvas resize events
+    window.addEventListener("resize", function () {
+        engine.resize();
+    });
 </script>
 </body>
 </html>
