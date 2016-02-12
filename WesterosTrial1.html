@@ -49,11 +49,21 @@
         var groundMaterial = new BABYLON.StandardMaterial('mat',scene);
         groundMaterial.diffuseTexture = new BABYLON.Texture('img/The Known World.jpg',scene);
 
-        var groundPlane = new BABYLON.Mesh.CreatePlane('ground', 600.0, scene);
+        var groundPlane = new BABYLON.Mesh.CreatePlane('groundPlane', 600.0, scene);
         groundPlane.material = groundMaterial;
 
         //work on scene
         groundPlane.position = new BABYLON.Vector3(0,0,0);
+
+        //        var ground = new BABYLON.CreateGroundFromHeightMap('ground','img/westerosHeightMap.jpg', 100, 100, 100, 0, 10, scene, false);
+        var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "img/westerosHeightMap.jpg", 100, 100, 250, 0, 40, scene, false);
+        /** I think what is happening
+         * is that the height map is not in the smae location as the plane
+         */
+
+
+        ground.position = new BABYLON.Vector3(0,0,0);;
+        ground.material = groundMaterial;
 
         return scene;
     };
