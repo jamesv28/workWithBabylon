@@ -31,32 +31,28 @@
 
     var createScene = function() {
         var scene = new BABYLON.Scene(engine);
-        var camera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 1, -100, 300, new BABYLON.Vector3(0, 0, 0), scene);
+        var camera = new BABYLON.ArcRotateCamera("camera", 1, -100, 300, new BABYLON.Vector3(0, 0, 0), scene);
         camera.attachControl(canvas, true);
         camera.setPosition(new BABYLON.Vector3(0,100,50));
-        var light0 = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 100, -8), scene);
-        light0.intensity = .8;
+        var light0 = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 200, -8), scene);
+        light0.intensity = .6;
 
-
-//        var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
-//        groundMaterial.diffuseTexture = new BABYLON.Texture("img/The Known World.jpg", scene);
-//
-//        var groundPlane = BABYLON.Mesh.CreatePlane("groundPlane", 200.0, scene);
-//        groundPlane.material = groundMaterial;
-//
-//        var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "img/westerosHeightMap1.jpg",  200, 200, 250, 0, 10, scene, false);
-//        ground.material = groundMaterial;
         var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
         groundMaterial.diffuseTexture = new BABYLON.Texture("img/The Known World.jpg", scene);
 
         var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "img/westerosHeightMap1.jpg", 200, 200, 300, 0, 5, scene, false);
         ground.material = groundMaterial;
 
+        /**
+         * flipped the position of the ground
+         * scaled the plane 200%
+         * *** need to work on the light and
+         * keeping the bounding of the camera to the position of the plane
+         * also need to work on the camera
+         */
         ground.rotation.y = Math.PI;
         ground.scaling.x = 2;
-        ground.scaling.y = 3;
-
-
+        ground.scaling.y = 2;
 
         return scene;
     };
@@ -65,6 +61,7 @@
     engine.runRenderLoop(function () {
         scene.render();
     });
+    //resize the canvas to make sure webGL is 100%
     window.addEventListener('resize', function() {
         engine.resize();
     })
