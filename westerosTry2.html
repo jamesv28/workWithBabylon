@@ -31,20 +31,30 @@
 
     var createScene = function() {
         var scene = new BABYLON.Scene(engine);
-        var camera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 1, 0.8, 20, new BABYLON.Vector3(0, 0, 0), scene);
+        var camera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 1, -100, 300, new BABYLON.Vector3(0, 0, 0), scene);
         camera.attachControl(canvas, true);
+        camera.setPosition(new BABYLON.Vector3(0,100,50));
         var light0 = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 100, -8), scene);
+        light0.intensity = .8;
 
 
+//        var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
+//        groundMaterial.diffuseTexture = new BABYLON.Texture("img/The Known World.jpg", scene);
+//
+//        var groundPlane = BABYLON.Mesh.CreatePlane("groundPlane", 200.0, scene);
+//        groundPlane.material = groundMaterial;
+//
+//        var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "img/westerosHeightMap1.jpg",  200, 200, 250, 0, 10, scene, false);
+//        ground.material = groundMaterial;
         var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
         groundMaterial.diffuseTexture = new BABYLON.Texture("img/The Known World.jpg", scene);
 
-        var groundPlane = BABYLON.Mesh.CreatePlane("groundPlane", 200.0, scene);
-        groundPlane.material = groundMaterial;
-
-        var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "img/westerosHeightMap1.jpg",  200, 200, 250, 0, 10, scene, false);
+        var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "img/westerosHeightMap1.jpg", 200, 200, 300, 0, 5, scene, false);
         ground.material = groundMaterial;
 
+        ground.rotation.y = Math.PI;
+        ground.scaling.x = 2;
+        ground.scaling.y = 3;
 
 
 
