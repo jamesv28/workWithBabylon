@@ -42,7 +42,7 @@
 
         camera.setPosition(new BABYLON.Vector3(0,100,50));
         var light0 = new BABYLON.PointLight("Omni", new BABYLON.Vector3(0, 200, -8), scene);
-        light0.intensity = .6;
+        light0.intensity = .7;
 
         var groundMaterial = new BABYLON.StandardMaterial("ground", scene);
         groundMaterial.diffuseTexture = new BABYLON.Texture("img/The Known World.jpg", scene);
@@ -69,6 +69,7 @@
     engine.runRenderLoop(function () {
         scene.render();
     });
+
     //resize the canvas to make sure webGL is 100%
     window.addEventListener('resize', function() {
         engine.resize();
