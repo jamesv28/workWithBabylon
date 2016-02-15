@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Creating a mpa of the earth</title>
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+    <script src="js/babylon.2.3.js"></script>
+    <script src="js/hand-1.3.7.js"></script>
+    <script src="js/cannon.js"></script>
+</head>
+<body>
+<canvas id="renderCanvas">
+
+</canvas>
+<script>
+    var canvas = document.getElementById('renderCanvas');
+    var engine = new BABYLON.Engine(canvas, true);
+
+    var createScene = function() {
+
+        var scene = new BABYLON.Scene(engine);
+
+        //light
+        var light = new BABYLON.HemisphericLight('HemiLight', new BABYLON.Vector3(-2, 0, 0),scene);
+
+        //camera
+        var camera = new BABYLON.ArcRotateCamera("Camera", -1.57, 1.0, 200, new BABYLON.Vector3.Zero(), scene);
+        camera.attachControl(canvas);
+
+        //create the sphere that is oging to be the earth
+        var sphere = new BABYLON.Mesh.CreateSphere('earth', 100.0, 100.0, scene);
+
+        sphere.position = new BABYLON.Vector3(0,0,0);
+        sphere.rotation.x = Math.PI;
+
+        var groundMaterial = new BABYLON.StandardMaterial('mat', scene);
+        groundMaterial.diffuseTexture = new BABYLON.Texture('img/earth.jpg', scene);
+        sphere.material = groundMaterial;
+
+        /**
+         * Mesh needs to be added to the sphere and not just on its own plane
+         */
+
+
+        var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "img/earthHeightMap.jpg", 200, 200, 300, 0, 5, scene, false);
+        ground.material = groundMaterial;
+
+        //animate the earth
+        var alpha = 0;
+        scene.beforeRender = function() {
+            sphere.rotation.y = alpha;
+            alpha -= 0.01;
+        };
+        return scene;
+    };
+
+    var scene = createScene();
+
+    // Register a render loop to repeatedly render the scene
+    engine.runRenderLoop(function () {
+        scene.render();
+    });
+
+    // Watch for browser/canvas resize events
+    window.addEventListener("resize", function () {
+        engine.resize();
+    });
+</script>
+</body>
+</html>
