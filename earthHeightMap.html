@@ -54,10 +54,14 @@
          * Mesh needs to be added to the sphere and not just on its own plane
          */
 
-
-        var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "img/earthHeightMap.jpg", 200, 200, 300, 0, 5, scene, false);
-        ground.material = groundMaterial;
-
+//
+//        var ground = BABYLON.Mesh.CreateGroundFromHeightMap("ground", "img/earthHeightMap.jpg", 200, 200, 300, 0, 5, scene, false);
+//        ground.material = groundMaterial;
+        /**
+         * sphere is white and black no idea why
+         *  gonna switch focus to three.js cause it look s like they are the standard
+         *  for webgl and hiring
+         */
         //animate the earth
         var alpha = 0;
         scene.beforeRender = function() {
